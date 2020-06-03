@@ -1,7 +1,7 @@
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 networking:
-  apiServerAddress: "127.0.0.1"
+  apiServerAddress: "15.0.0.3"
   apiServerPort: 8009
 # patch the generated kubeadm config with some extra settings
 kubeadmConfigPatches:

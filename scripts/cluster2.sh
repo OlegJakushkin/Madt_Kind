@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-CTX_CLUSTER1=$(kubectl config view -o jsonpath='{.contexts[0].name}')
-kubectl config use-context $CTX_CLUSTER1
+CTX_CLUSTER2=$(kubectl config view -o jsonpath='{.contexts[1].name}')
+kubectl config use-context $CTX_CLUSTER2
 
 cd ~/istio-1.6.0 
 kubectl create namespace istio-system
@@ -23,7 +23,7 @@ data:
     {"global": ["$(kubectl get svc -n istio-system istiocoredns -o jsonpath={.spec.clusterIP})"]}
 EOF
 
-kubectl label --context=$CTX_CLUSTER1 namespace default istio-injection=enabled
+kubectl label --context=$CTX_CLUSTER2 namespace default istio-injection=enabled
 
 kubectl apply --context=$CTX_CLUSTER2 -f - <<EOF
 apiVersion: v1

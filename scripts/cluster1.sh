@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 CTX_CLUSTER1=$(kubectl config view -o jsonpath='{.contexts[0].name}')
 kubectl config use-context $CTX_CLUSTER1

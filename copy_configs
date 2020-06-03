@@ -1,0 +1,6 @@
+#!/bin/bash
+echo "Get kube config from first cluster"
+docker cp MADT_kind_Node0:root/.kube/config ~/.kube/config1
+echo "Get kube config from second cluster"
+docker cp MADT_kind_Node1:root/.kube/config ~/.kube/config2
+export KUBECONFIG=~/.kube/config:~/.kube/config1:~/.kube/config2
