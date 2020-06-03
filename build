@@ -1,0 +1,15 @@
+#!/bin/bash
+echo "Get kube config from first cluster"
+docker cp madt_kind_1:root/.kube/config ~/.kube/config1
+echo "Get kube config from second cluster"
+docker cp madt_kind_1:root/.kube/config ~/.kube/config1
+export KUBECONFIG=~/.kube/config:~/.kube/config1
+
+#echo "Starting dind"
+#CONTAINER_ID=$(docker run -it --privileged --name kind_tmp -d madt/kind)
+#echo "Starting setup"
+#docker exec $CONTAINER_ID scripts/pull_image.sh
+#echo "Commiting new image"
+#docker commit $CONTAINER_ID madt/kind:v1
+
+# kind create cluster --image kindest/node:v1.18.2 --config=/configs/config_cluster1.yaml --name kind-1
