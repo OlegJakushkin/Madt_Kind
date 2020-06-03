@@ -1,4 +1,4 @@
-# MADT_Exonum
+# MADT_Kind
 
 1. Скачайте и запустите MADT:
 
