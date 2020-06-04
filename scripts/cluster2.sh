@@ -2,7 +2,6 @@
 CTX_CLUSTER2=$(kubectl config view -o jsonpath='{.contexts[1].name}')
 kubectl config use-context $CTX_CLUSTER2
 
-cd ~/istio-1.6.0 
 kubectl create namespace istio-system
 kubectl create secret generic cacerts -n istio-system \
     --from-file=samples/certs/ca-cert.pem \
