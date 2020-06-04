@@ -31,6 +31,21 @@ python3 ./lab.py
 
 ## Тестирование вне Madt
 
+### Перед началом:
+
+Установите istio-1.6.0 и прейдите в данную директорию:
+
+```
+sudo curl -sL https://istio.io/downloadIstio | ISTIO_VERSION=1.6.0 sh -
+sudo chmod +x ./istio-1.6.0
+sudo mv ./istio-1.6.0 /usr/local/bin/istio-1.6.0
+export ISTIOPATH=/usr/local/bin/istio-1.6.0
+export PATH=$ISTIOPATH/bin:$PATH
+cd ISTIOPATH
+```
+
+### Приступаем:
+
 1. Создадим сеть:
 
 ```
