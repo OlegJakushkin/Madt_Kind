@@ -1,5 +1,27 @@
 # MADT_Kind
 
+## Перед началом:
+
+Установите `istio-1.6.0` и прейдите в данную директорию:
+
+```
+sudo curl -sL https://istio.io/downloadIstio | ISTIO_VERSION=1.6.0 sh -
+sudo chmod +x ./istio-1.6.0
+sudo mv ./istio-1.6.0 /usr/local/bin/istio-1.6.0
+export ISTIOPATH=/usr/local/bin/istio-1.6.0
+export PATH=$ISTIOPATH/bin:$PATH
+```
+
+Установите `kubectl`:
+
+```
+sudo curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+sudo chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+```
+
+## Работа в MADT
+
 1. Скачайте и запустите MADT:
 
 ```
@@ -29,22 +51,12 @@ python3 ./lab.py
 4. WIP
 
 
-## Тестирование вне Madt
+## Работа вне Madt
 
-### Перед началом:
-
-Установите istio-1.6.0 и прейдите в данную директорию:
-
+Убедитесь, что у Вас собран образ `madt/kind` (если нет, см. выше). Перейдите в директорию `ISTIOPATH`:
 ```
-sudo curl -sL https://istio.io/downloadIstio | ISTIO_VERSION=1.6.0 sh -
-sudo chmod +x ./istio-1.6.0
-sudo mv ./istio-1.6.0 /usr/local/bin/istio-1.6.0
-export ISTIOPATH=/usr/local/bin/istio-1.6.0
-export PATH=$ISTIOPATH/bin:$PATH
-cd ISTIOPATH
+cd $ISTIOPATH
 ```
-
-### Приступаем:
 
 1. Создадим сеть:
 
@@ -66,14 +78,14 @@ docker exec MADT_kind_Node0 scripts/pull_image.sh
 docker exec MADT_kind_Node1 scripts/pull_image.sh
 ```
 
-4. Создать кластер в каждом контейнере: 
+4. Создать кластер в каждом контейнере (с помощью `docker exec` или `docker attach` в отдельных окнах): 
 
 ```
 kind create cluster --image kindest/node:v1.18.2 --config=/configs/config_cluster1.yaml --name kind-1
 kind create cluster --image kindest/node:v1.18.2 --config=/configs/config_cluster2.yaml --name kind-2
 ```
 
-5. Дождитесь окончания сборки кластера. После успешного окнчания, скопируйте конфиг файлы каждого контейнера используя следующий скрипт:
+5. Дождитесь окончания сборки кластеров. После успешного окнчания, скопируйте конфиг файл кластера из каждого контейнера используя следующий скрипт:
 
 ```
 bash copy_config
