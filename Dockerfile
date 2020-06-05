@@ -46,6 +46,9 @@ COPY configs configs
 ADD ./wrapdocker /usr/local/bin/wrapdocker
 RUN chmod +x /usr/local/bin/wrapdocker
 
+RUN apt-get install iputils-ping -y
+RUN apt-get install iproute2 net-tools -y
+
 # Define additional metadata for our image.
 VOLUME /var/lib/docker
 CMD ["wrapdocker"]
