@@ -48,9 +48,36 @@ python3 ./lab.py
 ```
 
 3. Перейдите на 127.0.0.1:80, для login используйте: `demo:demo`
-4. WIP
-
-
+4. Выберите сеть kind и нажмите кнопку `restart`
+5. Далее создайте 2 новых окна терминала и зайдите в них под root `sudo -s`
+6. Далее мы зайдем в каждый из созданных нами контейнеров и выполним команды по пулу образа kind, сбору кластеров и применению сервисов ISTIO:
+```
+#in new terminal №1
+docker exec -it MADT_kind_Node0 /bin/bash
+wrapdocker
+bash scripts/pull_image.sh
+kind create cluster --image kindest/node:v1.18.2 --config=/configs/config_cluster1.yaml --name kind-1
+cd $ISTIOPATH
+bash /scripts/cluster1.sh
+```
+```
+#in new terminal №2
+docker exec -it MADT_kind_Node1 /bin/bash
+wrapdocker
+bash scripts/pull_image.sh
+kind create cluster --image kindest/node:v1.18.2 --config=/configs/config_cluster2.yaml --name kind-2
+cd $ISTIOPATH
+bash /scripts/cluster2.sh
+```
+7. Скопируем конфиги из наших контейнеров в хост, для этого откроем еще одно окно терминала и перейдем в директорию с данным проектом:
+```
+bash copy_configs.sh
+```
+8. Проверяем работоспособность:
+```
+# in terminal with MADT_kind_Node0
+bash /scripts/finalize.sh
+```
 ## Работа вне Madt
 
 Убедитесь, что у Вас собран образ `madt/kind` (если нет, см. выше). Перейдите в директорию `ISTIOPATH`:
